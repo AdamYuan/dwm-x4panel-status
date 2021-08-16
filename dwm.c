@@ -713,8 +713,11 @@ drawbar(Monitor *m)
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
-	drw_setscheme(drw, scheme[SchemeNorm]);
-	drw_rect(drw, m->ww - m->x4pw, 0, m->x4pw, bh, 1, 1);
+	/* preserve space for xfce4-panel */
+	if (m->x4pw > 0) {
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_rect(drw, m->ww - m->x4pw, 0, m->x4pw, bh, 1, 1);
+	}
 
 	for (c = m->clients; c; c = c->next) {
 		occ |= c->tags;
